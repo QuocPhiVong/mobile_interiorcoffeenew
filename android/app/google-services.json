@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "281519500110",
+    "project_id": "interiorcoffee-4733b",
+    "storage_bucket": "interiorcoffee-4733b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:281519500110:android:ccddbbac333024ab674c1f",
+        "android_client_info": {
+          "package_name": "com.example.interior_coffee"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "281519500110-f2cf1pvtu9us4tvp5b6fh6i938m23g6u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.interior_coffee",
+            "certificate_hash": "ae2f3c5ad2eae5d7bd801f4db63457f838293f5c"
+          }
+        },
+        {
+          "client_id": "281519500110-os6n651hfohtut405smv41c1uoo18u94.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1IFKqZd1popL4IHbCTjP45_YwtFHsZ-I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "281519500110-os6n651hfohtut405smv41c1uoo18u94.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "281519500110-e4jrh8be4g7c9bpalaom95439anhkv44.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.interiorCoffee"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
