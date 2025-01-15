@@ -31,8 +31,7 @@ class AuthenticationRepository extends GetxController {
     required String email,
   }) async {
     try {
-      final response =
-          await _apiService.dio.post('/v1/auth/login-google?email=$email');
+      final response = await _apiService.dio.post('/v1/auth/login-google?email=$email');
       return response.data;
     } catch (e) {
       return null;

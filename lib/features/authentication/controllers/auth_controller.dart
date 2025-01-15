@@ -18,8 +18,7 @@ class AuthController extends GetxController {
   Rx<AuthenticationResponse> userData = Rx(AuthenticationResponse());
 
   final FlutterSecureStorage _secureStorage = FlutterSecureStorage();
-  final AuthenticationRepository _authenticationRepository =
-      AuthenticationRepository.instance;
+  final AuthenticationRepository _authenticationRepository = AuthenticationRepository.instance;
 
   final FirebaseAuthentication firebaseAuth = FirebaseAuthentication();
 
@@ -44,9 +43,7 @@ class AuthController extends GetxController {
   void _screenRedirect() async {
     final deviceStorage = GetStorage();
     deviceStorage.writeIfNull('IsFirstTime', true);
-    deviceStorage.read('IsFirstTime') != true
-        ? _silentLogin()
-        : Get.offAll(OnBoardingScreen());
+    deviceStorage.read('IsFirstTime') != true ? _silentLogin() : Get.offAll(OnBoardingScreen());
   }
 
   void disposeController() {
@@ -74,8 +71,7 @@ class AuthController extends GetxController {
   }
 
   bool _isPasswordValid() {
-    final regex =
-        RegExp(r'^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
+    final regex = RegExp(r'^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
     if (!regex.hasMatch(tfPasswordController.text)) {
       showSnackbar('Error',
           'Password must contain at least 8 characters, including letters lower and upper case, numbers and special characters');
@@ -111,14 +107,12 @@ class AuthController extends GetxController {
       if (requestBody is Map<String, dynamic>) {
         final String email = requestBody['email'] ?? '';
 
-        final res =
-            await _authenticationRepository.loginWithGoogle(email: email);
+        final res = await _authenticationRepository.loginWithGoogle(email: email);
 
         if (res == null) {
           hideLoading();
           Future.delayed(Duration(milliseconds: 100), () {
-            showSnackbar(
-                'Error', 'Email account not found, please sign up first!');
+            showSnackbar('Error', 'Email account not found, please sign up first!');
           });
         } else {
           userData.value = AuthenticationResponse.fromJson(res);
@@ -205,8 +199,7 @@ class AuthController extends GetxController {
         hideLoading();
         userData.value = AuthenticationResponse.fromJson(res);
 
-        await firebaseAuth.createAccountWithEmailAndPassword(
-            tfEmailController.text, tfPasswordController.text);
+        await firebaseAuth.createAccountWithEmailAndPassword(tfEmailController.text, tfPasswordController.text);
 
         if (userData.value.accessToken?.isNotEmpty == true) {
           await _cacheInfo();
@@ -221,11 +214,7 @@ class AuthController extends GetxController {
   Future<void> _cacheInfo() async {
     token = userData.value.accessToken;
     final email = userData.value.email ?? '';
-    await Future.wait([
-      saveToken(userData.value.accessToken ?? ''),
-      saveEmail(email),
-      _onFetchProfile(email)
-    ]);
+    await Future.wait([saveToken(userData.value.accessToken ?? ''), saveEmail(email), _onFetchProfile(email)]);
   }
 
   Future<void> _loadToken() async {

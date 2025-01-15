@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:interior_coffee/common/widgets/text/section_heading.dart';
+import 'package:interior_coffee/features/authentication/controllers/auth_controller.dart';
+import 'package:interior_coffee/features/shop/controllers/cart_controller.dart';
 import 'package:interior_coffee/features/shop/controllers/home_controller.dart';
 import 'package:interior_coffee/features/shop/screens/product_details/widget/bottom_add_to_cart.dart';
 import 'package:interior_coffee/features/shop/screens/product_details/widget/product_attribute.dart';
@@ -31,7 +33,13 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: TBottomAddToCart(),
+      bottomNavigationBar: TBottomAddToCart(
+        onAddToCart: (int quantity) {
+          CartController.instance.insertData(
+              _homeController.selectedProduct.value, quantity, AuthController.instance.userData.value.email ?? '');
+        },
+        maxQuantity: _homeController.selectedProduct.value.quantity ?? 0,
+      ),
       body: Obx(() {
         if (_homeController.isProductLoading.value) {
           return Center(child: CircularProgressIndicator());
@@ -48,9 +56,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 padding:
                     EdgeInsets.only(right: TSizes.defaultSpace, left: TSizes.defaultSpace, bottom: TSizes.defaultSpace),
                 child: Column(
-                  children: [
-                    TRating(),
-
+                  children:[
                     SizedBox(height: TSizes.spaceBtwItems),
 
                     //product info
@@ -69,10 +75,12 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        TSectionHeading(title: 'Review (199)', showActionButton: false),
+                        TSectionHeading(title: 'Review', showActionButton: false),
                         IconButton(
                             icon: Icon(Iconsax.arrow_right_3, size: 18),
-                            onPressed: () => Get.to(() => ProductReviewsScreen())),
+                            onPressed: () => Get.to(() => ProductReviewsScreen(
+                                  productId: widget.productId,
+                                ))),
                       ],
                     ),
                     SizedBox(height: TSizes.spaceBtwSections),

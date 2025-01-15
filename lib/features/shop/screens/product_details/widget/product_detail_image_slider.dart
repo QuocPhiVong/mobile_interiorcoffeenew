@@ -21,7 +21,7 @@ class TProductImageSlider extends StatelessWidget {
     final dark = THelperFunction.isDarkMode(context);
     return TCurvedEdgeWidget(
       child: Container(
-        color: dark ? TColors.darkerGrey : TColors.light,
+        color: dark ? TColors.light : TColors.light,
         child: Stack(
           children: [
             SizedBox(
@@ -55,20 +55,11 @@ class TProductImageSlider extends StatelessWidget {
             //   ),
             // ),
 
-            //View 3d model button
-            Positioned(
-              right: 0,
-              bottom: 30,
-              left: TSizes.defaultSpace,
-              child: TextButton(
-                  onPressed: () => Get.to(() => ModelViewerScreen()),
-                  child: Text('View 3D Model', style: TextStyle(color: TColors.primary))),
-            ),
 
             //Appbar
             TAppBar(
               showBackArrow: true,
-              actions: [TCircularIcon(icon: Iconsax.heart5, color: Colors.red)],
+              //actions: [TCircularIcon(icon: Iconsax.heart5, color: Colors.red)],
             )
           ],
         ),

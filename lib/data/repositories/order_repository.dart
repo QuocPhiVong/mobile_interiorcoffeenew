@@ -6,11 +6,12 @@ class OrderRepository extends GetxController {
 
   final ApiService _apiService = ApiService();
 
-  Future<Map<String, dynamic>?> getOrders() async {
+  Future<Map<String, dynamic>?> getOrders(String customerId) async {
     try {
-      final response = await _apiService.dio.get('/v1/orders');
+      final response = await _apiService.dio.get('/v1/orders/customer/$customerId');
       return response.data;
     } catch (e) {
+      print(e);
       return null;
     }
   }
@@ -38,5 +39,21 @@ class OrderRepository extends GetxController {
     } catch (e) {
       return null;
     }
+  }
+
+  Future<Map<String, dynamic>?> getOrderDetail(String orderId) async {
+    try {
+      final response = await _apiService.dio.get('/v1/orders/$orderId');
+      return response.data;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<void> updateOrderStatus(String orderId, String status) async {
+    try {
+      await _apiService.dio.patch('/v1/orders/$orderId',
+          data: {"status": status, "updated-date": DateTime.now().toIso8601String(), "system-income": 0});
+    } catch (e) {}
   }
 }

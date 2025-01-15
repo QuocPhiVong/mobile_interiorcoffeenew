@@ -11,9 +11,14 @@ import 'package:interior_coffee/utils/theme/custom_themes/text_field_theme.dart'
 import 'package:interior_coffee/utils/theme/custom_themes/text_theme.dart';
 import 'package:interior_coffee/utils/theme/theme.dart';
 
-class App extends StatelessWidget {
+class App extends StatefulWidget {
   const App({super.key});
 
+  @override
+  State<App> createState() => _AppState();
+}
+
+class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -36,8 +41,7 @@ class App extends StatelessWidget {
         inputDecorationTheme: TTextFieldTheme.darkInputDecorationTheme,
       ),
       home: Scaffold(
-          backgroundColor: TColors.primary,
-          body: Center(child: CircularProgressIndicator(color: Colors.white))),
+          backgroundColor: TColors.primary, body: Center(child: CircularProgressIndicator(color: Colors.white))),
     );
   }
 }

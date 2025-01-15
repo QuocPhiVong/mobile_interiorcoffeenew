@@ -48,10 +48,10 @@ class SettingsScreen extends StatelessWidget {
                   SizedBox(height: TSizes.spaceBtwItems),
 
                   TSettingsMenuTile(
-                    icon: Iconsax.heart,
-                    title: 'My Favourite',
-                    subTitle: 'View your favourite furnitures list',
-                    onTap: () => Get.to(FavouriteScreen()),
+                    icon: Iconsax.profile_circle,
+                    title: 'My Profile',
+                    subTitle: 'View your profile information',
+                    onTap: () => Get.to(ProfileScreen()),
                   ),
 
                   TSettingsMenuTile(
@@ -68,30 +68,32 @@ class SettingsScreen extends StatelessWidget {
                     onTap: () => Get.to(() => OrderScreen()),
                   ),
 
+/*
                   TSettingsMenuTile(
                     icon: Iconsax.notification,
                     title: 'Notifications',
                     subTitle: 'Unread notifications',
                     onTap: () {},
                   ),
+*/
 
-                  TSettingsMenuTile(
+/*                  TSettingsMenuTile(
                     icon: Iconsax.designtools,
                     title: 'My design template',
                     subTitle: 'View your template list',
                     onTap: () {},
-                  ),
+                  ),*/
 
                   SizedBox(height: TSizes.spaceBtwSections),
                   TSectionHeading(title: 'Application Settings', showActionButton: false),
                   SizedBox(height: TSizes.spaceBtwItems),
 
-                  TSettingsMenuTile(
+/*                  TSettingsMenuTile(
                     icon: Iconsax.paperclip,
                     title: 'Policy',
                     subTitle: 'View term and agreements',
                     onTap: () {},
-                  ),
+                  ),*/
 
                   TSettingsMenuTile(
                     icon: Iconsax.logout,

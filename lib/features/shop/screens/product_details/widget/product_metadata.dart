@@ -14,6 +14,7 @@ import 'package:interior_coffee/utils/constants/enums.dart';
 import 'package:interior_coffee/utils/constants/image_strings.dart';
 import 'package:interior_coffee/utils/constants/sizes.dart';
 import 'package:interior_coffee/utils/helpers/function_helper.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../../utils/constants/ref_data.dart';
 import '../../../../authentication/controllers/auth_controller.dart';
@@ -26,6 +27,8 @@ class TProductMetadata extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dark = THelperFunction.isDarkMode(context);
+    var formatter = NumberFormat.decimalPattern('vi_VN');
+    
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -45,13 +48,13 @@ class TProductMetadata extends StatelessWidget {
             SizedBox(width: TSizes.spaceBtwItems),
 
             //price
-            Text('VND ${info.truePrice}',
+            Text('${formatter.format(info.truePrice)}đ',
                 style: Theme.of(context)
                     .textTheme
                     .titleSmall!
                     .apply(decoration: TextDecoration.lineThrough)),
             SizedBox(width: TSizes.spaceBtwItems),
-            TProductPriceText(price: '${info.sellingPrice}', isLarge: true),
+            TProductPriceText(price: formatter.format(info.truePrice), isLarge: true),
           ],
         ),
 
@@ -65,8 +68,8 @@ class TProductMetadata extends StatelessWidget {
         Row(
           children: [
             TProductTitleText(title: 'Quantity :'),
-            SizedBox(width: TSizes.spaceBtwItems),
-            Text('${info.quantity ?? 0}',
+            SizedBox(width: TSizes.sm),
+            Text('${info.quantity ?? 0} in Stock',
                 style: Theme.of(context).textTheme.titleMedium),
           ],
         ),
@@ -86,7 +89,7 @@ class TProductMetadata extends StatelessWidget {
                 ),
                 SizedBox(width: 8),
                 TBrandTitleWithVerifiedIcon(
-                  title: RefData.currentMerchantName,
+                  title: 'Tien Phu Furniture',
                   brandTextSize: TextSizes.medium,
                 ),
               ],

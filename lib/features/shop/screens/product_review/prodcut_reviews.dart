@@ -1,12 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:interior_coffee/common/widgets/appbar/appbar.dart';
 import 'package:interior_coffee/common/widgets/products/ratings/ratings_indicator.dart';
+import 'package:interior_coffee/features/shop/controllers/review_controller.dart';
 import 'package:interior_coffee/features/shop/screens/product_review/widget/rating_progress_indicator.dart';
 import 'package:interior_coffee/features/shop/screens/product_review/widget/user_reviews_card.dart';
 import 'package:interior_coffee/utils/constants/sizes.dart';
 
-class ProductReviewsScreen extends StatelessWidget {
-  const ProductReviewsScreen({super.key});
+class ProductReviewsScreen extends StatefulWidget {
+  final String productId;
+  const ProductReviewsScreen({super.key, required this.productId});
+
+  @override
+  State<ProductReviewsScreen> createState() => _ProductReviewsScreenState();
+}
+
+class _ProductReviewsScreenState extends State<ProductReviewsScreen> {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await ReviewController.instance.getReview(widget.productId);
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,28 +32,22 @@ class ProductReviewsScreen extends StatelessWidget {
 
       //body
       body: SingleChildScrollView(
-          child: Padding(
-              padding: EdgeInsets.all(TSizes.defaultSpace),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Rating and review section from people who already bought this product'),
-                SizedBox(height: TSizes.spaceBtwItems),
+        child: Padding(
+          padding: EdgeInsets.all(TSizes.defaultSpace),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Rating and review section from people who already bought this product'),
+              SizedBox(height: TSizes.spaceBtwItems),
 
-                //overall rating
-                TOverallProductRating(),
-                TRatingBarIndicator(rating: 3.5),
-                Text('123', style: Theme.of(context).textTheme.bodySmall),
-                SizedBox(height: TSizes.spaceBtwSections),
-                UserReviewsCard(),
-                UserReviewsCard(),
-                UserReviewsCard(),
-              ],
-            ),
+              //overall ratinng
+              Obx(() => Column(
+                  children:
+                      ReviewController.instance.reviews.map((review) => UserReviewsCard(review: review)).toList()))
+            ],
           ),
+        ),
       ),
     );
   }
 }
-
-

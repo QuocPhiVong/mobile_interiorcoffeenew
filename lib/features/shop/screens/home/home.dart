@@ -5,11 +5,14 @@ import 'package:interior_coffee/common/widgets/custom_shapes/containers/search_c
 import 'package:interior_coffee/common/widgets/layout/grid_layout.dart';
 import 'package:interior_coffee/common/widgets/products/product_cards/product_card_vertical.dart';
 import 'package:interior_coffee/common/widgets/text/section_heading.dart';
+import 'package:interior_coffee/features/authentication/controllers/auth_controller.dart';
+import 'package:interior_coffee/features/shop/controllers/cart_controller.dart';
 import 'package:interior_coffee/features/shop/controllers/home_controller.dart';
 import 'package:interior_coffee/features/shop/screens/all_products/all_products.dart';
 import 'package:interior_coffee/features/shop/screens/home/widgets/home_appbar.dart';
 import 'package:interior_coffee/features/shop/screens/home/widgets/home_category.dart';
 import 'package:interior_coffee/features/shop/screens/home/widgets/promo_slider.dart';
+import 'package:interior_coffee/features/shop/screens/store/store.dart';
 import 'package:interior_coffee/utils/constants/image_strings.dart';
 import 'package:interior_coffee/utils/constants/sizes.dart';
 
@@ -22,11 +25,13 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   HomeController _homeController = HomeController.instance;
+  CartController _cartController = CartController.instance;
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _homeController.fetchProducts();
+      _cartController.getAllByEmail(AuthController.instance.userData.value.email ?? '');
     });
   }
 
@@ -43,11 +48,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   THomeAppBar(),
                   SizedBox(height: TSizes.spaceBtwItems),
 
-                  //Search bar
+/*                  //Search bar
                   TSearchContainer(
                     text: 'Search in store',
-                  ),
-                  SizedBox(height: TSizes.spaceBtwSections),
+                  ),*/
+/*                  SizedBox(height: TSizes.spaceBtwSections),
 
                   //categories slider
                   Padding(
@@ -61,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         THomeCategory(),
                       ],
                     ),
-                  ),
+                  ),*/
 
                   SizedBox(height: TSizes.spaceBtwSections),
                 ],
@@ -78,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(height: TSizes.spaceBtwSections),
 
                   //heading
-                  TSectionHeading(title: 'Popular Product', onPressed: () => Get.to(() => AllProducts())),
+                  TSectionHeading(title: 'Popular Product', onPressed: () => Get.to(() => StoreScreen())),
                   SizedBox(height: TSizes.spaceBtwItems),
 
                   //popular product

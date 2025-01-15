@@ -14,7 +14,7 @@ class TBillingPaymentSection extends StatelessWidget {
     final dark = THelperFunction.isDarkMode(context);
     return Column(
       children: [
-        TSectionHeading(title: 'Payment Method', buttonTitle: 'Change',onPressed: (){}),
+        TSectionHeading(title: 'Payment Method', buttonTitle: '',onPressed: (){}),
         SizedBox(height: TSizes.spaceBtwItems /2),
         Row(
           children: [

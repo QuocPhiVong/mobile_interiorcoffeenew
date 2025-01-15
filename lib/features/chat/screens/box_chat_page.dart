@@ -19,8 +19,7 @@ class BoxChatPage extends StatefulWidget {
 class _BoxChatPageState extends State<BoxChatPage> {
   final String? userEmail = AuthController.instance.userData.value.email;
   final String? userId = AuthController.instance.userData.value.id;
-  Map<String, bool> visibleStatuses =
-      {}; // Track visibility of statuses by message ID
+  Map<String, bool> visibleStatuses = {}; // Track visibility of statuses by message ID
 
   @override
   void initState() {
@@ -98,9 +97,7 @@ class _BoxChatPageState extends State<BoxChatPage> {
                     final message = messageDoc.data() as Map<String, dynamic>;
                     final content = message['content'] ?? '';
                     final timestamp = message['timestamp'] as Timestamp?;
-                    final time = timestamp != null
-                        ? DateFormat('HH:mm').format(timestamp.toDate())
-                        : 'N/A';
+                    final time = timestamp != null ? DateFormat('HH:mm').format(timestamp.toDate()) : 'N/A';
                     final status = message['status'] ?? '';
                     final messageId = messageDoc.id;
 
@@ -111,9 +108,7 @@ class _BoxChatPageState extends State<BoxChatPage> {
                     final messageDate = timestamp?.toDate();
                     final DateTime now = DateTime.now();
                     final String formattedDate = messageDate != null
-                        ? (messageDate.day == now.day &&
-                                messageDate.month == now.month &&
-                                messageDate.year == now.year
+                        ? (messageDate.day == now.day && messageDate.month == now.month && messageDate.year == now.year
                             ? 'Today'
                             : DateFormat('dd/MM/yyyy').format(messageDate))
                         : 'N/A';
@@ -121,10 +116,7 @@ class _BoxChatPageState extends State<BoxChatPage> {
                     final bool showDateDivider = index == 0 ||
                         (index > 0 &&
                             timestamp != null &&
-                            (messages[index - 1].data()
-                                        as Map<String, dynamic>)['timestamp']
-                                    ?.toDate()
-                                    ?.day !=
+                            (messages[index - 1].data() as Map<String, dynamic>)['timestamp']?.toDate()?.day !=
                                 messageDate?.day);
 
                     return Column(
@@ -146,12 +138,8 @@ class _BoxChatPageState extends State<BoxChatPage> {
                                 child: Text(
                                   formattedDate,
                                   style: TextStyle(
-                                    color: formattedDate == 'Today'
-                                        ? Colors.black
-                                        : Colors.black87,
-                                    fontWeight: formattedDate == 'Today'
-                                        ? FontWeight.bold
-                                        : FontWeight.normal,
+                                    color: formattedDate == 'Today' ? Colors.black : Colors.black87,
+                                    fontWeight: formattedDate == 'Today' ? FontWeight.bold : FontWeight.normal,
                                     fontSize: 12,
                                   ),
                                 ),
@@ -162,14 +150,11 @@ class _BoxChatPageState extends State<BoxChatPage> {
                           onTap: () => toggleStatusVisibility(messageId),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: isSender
-                                ? MainAxisAlignment.end
-                                : MainAxisAlignment.start,
+                            mainAxisAlignment: isSender ? MainAxisAlignment.end : MainAxisAlignment.start,
                             children: [
                               if (!isSender)
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10),
+                                  padding: const EdgeInsets.symmetric(horizontal: 10),
                                   child: Container(
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
@@ -188,9 +173,7 @@ class _BoxChatPageState extends State<BoxChatPage> {
                                 ),
                               // Message Bubble
                               Column(
-                                crossAxisAlignment: isSender
-                                    ? CrossAxisAlignment.end
-                                    : CrossAxisAlignment.start,
+                                crossAxisAlignment: isSender ? CrossAxisAlignment.end : CrossAxisAlignment.start,
                                 children: [
                                   Container(
                                     constraints: BoxConstraints(
@@ -202,30 +185,21 @@ class _BoxChatPageState extends State<BoxChatPage> {
                                     ),
                                     padding: const EdgeInsets.all(10),
                                     decoration: BoxDecoration(
-                                      color: isSender
-                                          ? Colors.blue
-                                          : Colors.grey.shade300,
+                                      color: isSender ? Colors.blue : Colors.grey.shade300,
                                       borderRadius: BorderRadius.only(
-                                        topLeft: isSender
-                                            ? Radius.circular(10)
-                                            : Radius.zero,
-                                        topRight: isSender
-                                            ? Radius.zero
-                                            : Radius.circular(10),
+                                        topLeft: isSender ? Radius.circular(10) : Radius.zero,
+                                        topRight: isSender ? Radius.zero : Radius.circular(10),
                                         bottomLeft: Radius.circular(10),
                                         bottomRight: Radius.circular(10),
                                       ),
                                     ),
                                     child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           content,
                                           style: TextStyle(
-                                            color: isSender
-                                                ? Colors.white
-                                                : Colors.black,
+                                            color: isSender ? Colors.white : Colors.black,
                                             fontSize: 14,
                                           ),
                                         ),
@@ -233,9 +207,7 @@ class _BoxChatPageState extends State<BoxChatPage> {
                                         Text(
                                           time,
                                           style: TextStyle(
-                                            color: isSender
-                                                ? Colors.white70
-                                                : Colors.grey.shade600,
+                                            color: isSender ? Colors.white70 : Colors.grey.shade600,
                                             fontSize: 10,
                                           ),
                                         ),
@@ -244,8 +216,7 @@ class _BoxChatPageState extends State<BoxChatPage> {
                                   ),
                                   if (visibleStatuses[messageId] == true)
                                     Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 10, right: 10, bottom: 5),
+                                      padding: const EdgeInsets.only(left: 10, right: 10, bottom: 5),
                                       child: Text(
                                         'Status: $status',
                                         style: TextStyle(
@@ -288,11 +259,7 @@ class __MessageInputState extends State<_MessageInput> {
   void _sendMessage() {
     if (_controller.text.trim().isEmpty) return;
 
-    FirebaseFirestore.instance
-        .collection('chats')
-        .doc(widget.chatId)
-        .collection('messages')
-        .add({
+    FirebaseFirestore.instance.collection('chats').doc(widget.chatId).collection('messages').add({
       'chatId': widget.chatId,
       'content': _controller.text.trim(),
       'fileUrl': '',

@@ -138,7 +138,7 @@ class Product {
   final int? sellingPrice;
   final int? discount;
   final int? truePrice;
-  final int? quantity;
+  int? quantity;
   final String? status;
   final String? dimensions;
   final List<String>? materials;
@@ -229,4 +229,29 @@ class Images {
         "thumbnail": thumbnail,
         "normal-images": normalImages != null ? List<dynamic>.from(normalImages!.map((x) => x)) : [],
       };
+}
+
+class CartItem {
+  final String? id;
+  final Product? object;
+  final int? quantity;
+  final double? timestamp;
+
+  CartItem({
+    required this.id,
+    required this.object,
+    required this.quantity,
+    required this.timestamp,
+  });
+
+  factory CartItem.fromRawJson(String str) => CartItem.fromJson(json.decode(str));
+
+  factory CartItem.fromJson(Map<String, dynamic> json) => CartItem(
+        id: json["id"] ?? '',
+        object: json["object"] != null ? Product.fromJson(json["object"]) : null,
+        quantity: json["quantity"] ?? 0,
+        timestamp: json["timestamp"] != null
+            ? double.parse(json["timestamp"].toString())
+            : DateTime.now().millisecondsSinceEpoch.toDouble(),
+      );
 }

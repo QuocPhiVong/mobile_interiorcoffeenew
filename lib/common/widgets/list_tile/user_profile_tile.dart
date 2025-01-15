@@ -28,7 +28,6 @@ class TUserProfileTiles extends StatelessWidget {
           style: Theme.of(context).textTheme.headlineSmall!.apply(color: TColors.white))),
       subtitle: Obx(() =>
           Text(info.value.email ?? '', style: Theme.of(context).textTheme.bodyMedium!.apply(color: TColors.white))),
-      trailing: IconButton(onPressed: onPressed, icon: Icon(Iconsax.edit, color: TColors.white)),
     );
   }
 }

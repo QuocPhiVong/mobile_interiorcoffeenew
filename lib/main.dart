@@ -7,35 +7,39 @@ import 'package:interior_coffee/app.dart';
 import 'package:interior_coffee/data/repositories/authentication_repository.dart';
 import 'package:interior_coffee/data/repositories/order_repository.dart';
 import 'package:interior_coffee/data/repositories/product_repository.dart';
+import 'package:interior_coffee/data/repositories/review_repository.dart';
 import 'package:interior_coffee/data/repositories/transaction_repository.dart';
 import 'package:interior_coffee/features/authentication/controllers/auth_controller.dart';
+import 'package:interior_coffee/features/shop/controllers/cart_controller.dart';
 import 'package:interior_coffee/features/shop/controllers/home_controller.dart';
 import 'package:interior_coffee/features/shop/controllers/order_controller.dart';
+import 'package:interior_coffee/features/shop/controllers/review_controller.dart';
 import 'package:interior_coffee/features/shop/controllers/transaction_controller.dart';
 import 'package:interior_coffee/navigation_menu.dart';
 
 import 'firebase_options.dart';
 
 Future<void> main() async {
-  final WidgetsBinding widgetsBinding =
-      WidgetsFlutterBinding.ensureInitialized();
+  final WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
 
   await GetStorage.init();
 
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform)
-      .then(
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform).then(
     (FirebaseApp value) {
       Get.put(AuthenticationRepository());
       Get.put(ProductRepository());
       Get.put(OrderRepository());
       Get.put(TransactionRepository());
+      Get.put(ReviewRepository());
       Get.put(NavigationController());
       Get.put(AuthController());
       Get.put(HomeController());
       Get.put(OrderController());
       Get.put(TransactionController());
+      Get.put(CartController());
+      Get.put(ReviewController());
     },
   );
 

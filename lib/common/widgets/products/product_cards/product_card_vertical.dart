@@ -12,8 +12,10 @@ import 'package:interior_coffee/data/response/products_response.dart';
 import 'package:interior_coffee/features/shop/screens/product_details/product_detail.dart';
 import 'package:interior_coffee/utils/constants/colors.dart';
 import 'package:interior_coffee/utils/constants/image_strings.dart';
+import 'package:interior_coffee/utils/constants/ref_data.dart';
 import 'package:interior_coffee/utils/constants/sizes.dart';
 import 'package:interior_coffee/utils/helpers/function_helper.dart';
+import 'package:intl/intl.dart';
 
 class TProductCardVertical extends StatelessWidget {
   final Product? info;
@@ -22,6 +24,7 @@ class TProductCardVertical extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dark = THelperFunction.isDarkMode(context);
+    var formatter = NumberFormat.decimalPattern('vi_VN');
 
     return GestureDetector(
       onTap: () => Get.to(() => ProductDetailScreen(
@@ -50,10 +53,13 @@ class TProductCardVertical extends StatelessWidget {
                   TRoundedImage(
                     imageUrl: info?.images?.thumbnail ?? TImages.productImage1,
                     applyImageRadius: true,
+                    backgroundColor: TColors.white,
+                    fit: BoxFit.fill,
+                    padding: EdgeInsets.all(1),
                     isNetworkImage: (info?.images?.thumbnail?.isNotEmpty == true),
                   ),
 
-                  //sale tag
+                  /*//sale tag
                   Positioned(
                     top: 0,
                     child: TRoundedContainer(
@@ -62,14 +68,14 @@ class TProductCardVertical extends StatelessWidget {
                       padding: EdgeInsets.symmetric(horizontal: TSizes.sm, vertical: TSizes.xs),
                       child: Text('25%', style: Theme.of(context).textTheme.labelLarge!.apply(color: TColors.black)),
                     ),
-                  ),
+                  ),*/
 
-                  //add to favourite
+                  /*//add to favourite
                   Positioned(
                     top: 0,
                     right: 0,
                     child: TCircularIcon(icon: Iconsax.heart5, color: Colors.red),
-                  ),
+                  ),*/
                 ],
               ),
             ),
@@ -83,7 +89,7 @@ class TProductCardVertical extends StatelessWidget {
                 children: [
                   TProductTitleText(title: info?.name ?? 'White coffee arm chair', smallSize: true),
                   SizedBox(height: TSizes.spaceBtwItems / 2),
-                  TMerchatTitleWithVerifiedIcon(title: 'Zinus')
+                  TMerchatTitleWithVerifiedIcon(title: 'Tien Phu Furniture'),
                 ],
               ),
             ),
@@ -96,7 +102,7 @@ class TProductCardVertical extends StatelessWidget {
                 //price
                 Padding(
                     padding: EdgeInsets.only(left: TSizes.sm),
-                    child: TProductPriceText(price: (info?.truePrice ?? 0).toString())),
+                    child: TProductPriceText(price: formatter.format(info?.truePrice ?? 0).toString())),
 
                 Container(
                   decoration: BoxDecoration(

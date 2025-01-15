@@ -107,6 +107,7 @@ class OrderProduct {
   final double? price;
   final int? quantity;
   final String? merchantId;
+  final String? image;
 
   OrderProduct({
     this.id,
@@ -115,6 +116,7 @@ class OrderProduct {
     this.price,
     this.quantity,
     this.merchantId,
+    this.image,
   });
 
   factory OrderProduct.fromJson(Map<String, dynamic> json) {
@@ -125,6 +127,7 @@ class OrderProduct {
       price: (json['price'] as num?)?.toDouble(),
       quantity: json['quantity'] as int?,
       merchantId: json['merchant-id'] as String?,
+      image: json['image'] as String?,
     );
   }
 
@@ -136,6 +139,7 @@ class OrderProduct {
       'price': price,
       'quantity': quantity,
       'merchant-id': merchantId,
+      'image': image,
     };
   }
 }

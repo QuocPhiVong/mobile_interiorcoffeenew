@@ -26,7 +26,7 @@ class ProfileScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     TCircularImage(image: TImages.google, width: 80, height: 80),
-                    TextButton(onPressed: () {}, child: Text('Change profile picture')),
+                    //TextButton(onPressed: () {}, child: Text('Change profile picture')),
                   ],
                 ),
               ),
@@ -37,7 +37,7 @@ class ProfileScreen extends StatelessWidget {
               TSectionHeading(title: 'Profile Information', showActionButton: false),
               SizedBox(height: TSizes.spaceBtwItems),
 
-              TProfileMenu(onPressed: () {}, title: 'Name', value: 'User fullname'),
+              TProfileMenu(onPressed: () {}, title: 'Name', value: info.value.userName ?? ''),
               Obx(() => TProfileMenu(onPressed: () {}, title: 'Username', value: info.value.userName ?? '')),
 
               SizedBox(height: TSizes.spaceBtwItems),
